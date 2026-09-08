@@ -20,6 +20,7 @@ services:
     depends_on: 
       - mosquitto
       - timescaledb
+      
 
   timescaledb:
     image: timescale/timescaledb:latest-pg18
@@ -32,6 +33,12 @@ services:
       - "5432:5432"
     volumes:
       - timescale_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10   
+
 
   grafana:
     image: grafana/grafana:latest
@@ -43,6 +50,11 @@ services:
       GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
     volumes:
       - grafana_data:/var/lib/grafana
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10   
     depends_on:
       - timescaledb
 

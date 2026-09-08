@@ -8,4 +8,6 @@ COPY pyproject.toml /app/
 RUN pip install --no-cache-dir uv
 RUN uv sync --no-dev
 
+#PYTHONUNBUFFERD=1, kan ha detta istället för flush
+
 CMD [ "uv", "run", "comsumer.py"]
