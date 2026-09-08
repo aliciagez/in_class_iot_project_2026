@@ -7,7 +7,7 @@ import json
 time.sleep(0.1)
 
 TOPIC = b"home/pico/dht11"
-MQTT_BROKER = "10.54.4.148"
+MQTT_BROKER = "10.253.75.148"
 status_led = Pin(15, 1)
 
 dht_sensor = DHT11(Pin(16))
@@ -31,7 +31,7 @@ while True:
     temp = dht_sensor.temperature()
     humidity = dht_sensor.humidity()
 
-    data = {"temprature": temp, "humidity": humidity}
+    data = {"temperature": temp, "humidity": humidity}
     print(data)
 
 
