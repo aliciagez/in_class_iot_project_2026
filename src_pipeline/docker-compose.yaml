@@ -18,8 +18,9 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       DB_HOST: timescaledb
     depends_on: 
-      - mosquitto
-      - timescaledb
+      timescaledb:
+        condition: service_healthy
+      
       
 
   timescaledb:
